@@ -19,27 +19,35 @@ const handleInputChange = () => {
 
 
 const createTaskElement = (taskDescription, isCompleted = false) => {
-
-
-
   const taskItemContainer = document.createElement("div");
   taskItemContainer.classList.add("task-item");
 
-
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.checked = isCompleted;
 
   const taskContent = document.createElement("p");
   taskContent.innerText = taskDescription;
-
-
-
+  
   if (isCompleted) {
     taskContent.classList.add("completed");
   }
 
 
 
+checkbox.addEventListener("change", () => {
+    taskContent.classList.toggle("completed");
+    updateLocalStorage();
+  });
+
   taskContent.addEventListener("click", () => {
     handleTaskClick(taskContent);
+  });
+
+   taskContent.addEventListener("click", () => {
+    taskContent.classList.toggle("completed");
+    checkbox.checked = taskContent.classList.contains("completed");
+    updateLocalStorage();
   });
 
 
@@ -51,24 +59,18 @@ const createTaskElement = (taskDescription, isCompleted = false) => {
     handleEditTask(taskContent);
   });
 
-
-
   const deleteItem = document.createElement("i");
   deleteItem.classList.add("far", "fa-trash-alt");
-
-
 
   deleteItem.addEventListener("click", () => {
     handleDeleteTask(taskItemContainer);
   });
 
-
-
+  
+   taskItemContainer.appendChild(checkbox);
    taskItemContainer.appendChild(taskContent);
    taskItemContainer.appendChild(editItem);
    taskItemContainer.appendChild(deleteItem);
-
-
 
   tasksContainer.appendChild(taskItemContainer);
 };
@@ -108,8 +110,6 @@ const handleDeleteTask = (taskItemContainer) => {
    save local das coisa
 */
 
-
-
 const updateLocalStorage = () => {
   const tasks = tasksContainer.children;
 
@@ -142,8 +142,6 @@ const refreshTasksUsingLocalStorage = () => {
 /* 
    butao
 */
-
-
 
 addTaskButton.addEventListener("click", () => {
   handleAddTask();
