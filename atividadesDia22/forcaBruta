@@ -1,0 +1,21 @@
+dna = "ACGTACGTTACGGAATCG"
+procurada = "TACG"
+encontrada = False
+
+for i in range(len(dna) - len(procurada)):
+    encontrou = True
+
+    for j in range(len(procurada)):
+        if dna[i + j] != procurada[j]:
+            encontrou = False
+
+    if encontrou:
+        encontrada = True
+        break
+
+if encontrada:
+        print(f"Sequência encontrada na posição {i + 1}.")
+else:
+        print("Sequência não encontrada")
+
+      

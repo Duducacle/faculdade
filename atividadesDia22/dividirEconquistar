@@ -1,0 +1,10 @@
+def mdc(l, a):
+    if a == 0:
+        return l
+    else:
+        return mdc(a, l % a)
+
+L = int(input("L = "))
+A = int(input("A = "))
+
+print("Tamanho do lado:", mdc(L, A))
